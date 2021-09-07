@@ -6,9 +6,9 @@ x-default:
   build: .
   volumes:
     - odoo-web-data:/var/lib/odoo
-    - ./odoo.conf:/etc/odoo/odoo.conf
-    - ../../common:/mnt/common
-    - ./:/mnt/project
+    - ./odoo.conf:/etc/odoo/odoo.conf:ro
+    - ../../common:/mnt/common:ro
+    - ./:/mnt/project:ro
 
   environment:
     - WDB_SOCKET_SERVER=wdb
