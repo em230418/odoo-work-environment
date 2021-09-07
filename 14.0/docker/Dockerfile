@@ -67,6 +67,12 @@ COPY wait-for-psql.py /usr/local/bin/wait-for-psql.py
 
 RUN ln -s /mnt/common/odoo/odoo/odoo-bin /usr/local/bin/odoo
 
+RUN python3 -m pip install wdb
+
+# https://cryptography.io/en/latest/installation/#debian-ubuntu
+# Just in case we need to use cryptography package
+RUN apt-get install -y build-essential libssl-dev libffi-dev python3-dev cargo
+
 # Set default user when running the container
 USER odoo
 
