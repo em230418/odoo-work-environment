@@ -3,7 +3,7 @@ version: '3.4'
 x-default:
   &default-odoo
   tty: true
-  image: my/odoo:14.0
+  build: .
   volumes:
     - odoo-web-data:/var/lib/odoo
     - ./odoo.conf:/etc/odoo/odoo.conf
