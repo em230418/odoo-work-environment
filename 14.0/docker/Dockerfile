@@ -41,6 +41,11 @@ RUN npm install -g rtlcss
 COPY ./entrypoint.sh /
 COPY ./odoo.conf /etc/odoo/
 
+RUN apt-get update && apt-get install -y build-essential python3-dev
+
+COPY ./requirements.txt /tmp/requirements.txt
+RUN python3 -m pip install -r /tmp/requirements.txt
+
 RUN mkdir /var/lib/odoo && \
     groupadd odoo && \
     useradd -g odoo odoo -d /var/lib/odoo && \
