@@ -65,7 +65,7 @@ ENV ODOO_RC /etc/odoo/odoo.conf
 
 COPY wait-for-psql.py /usr/local/bin/wait-for-psql.py
 
-RUN ln -s /mnt/odoo/odoo-bin /usr/local/bin/odoo
+RUN ln -s /mnt/common/odoo/odoo/odoo-bin /usr/local/bin/odoo
 
 # Set default user when running the container
 USER odoo

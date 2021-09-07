@@ -1,0 +1,69 @@
+static_resources:
+  clusters:
+  - connect_timeout: 0.25s
+    hosts:
+    - socket_address: {address: odoo, port_value: 8069}
+    lb_policy: round_robin
+    max_requests_per_connection: 1
+    name: target_odoo
+    type: strict_dns
+  - connect_timeout: 0.25s
+    hosts:
+    - socket_address: {address: odoo-longpolling, port_value: 8072}
+    lb_policy: round_robin
+    max_requests_per_connection: 1
+    name: target_odoo_longpolling
+    type: strict_dns
+  - connect_timeout: 0.25s
+    hosts:
+    - socket_address: {address: wdb, port_value: 1984}
+    lb_policy: round_robin
+    name: target_wdb
+    type: strict_dns
+  - connect_timeout: 0.25s
+    hosts:
+    - socket_address: {address: smtpfake, port_value: 8025}
+    lb_policy: round_robin
+    name: target_smtpfake
+    type: strict_dns
+  listeners:
+  - address:
+      socket_address: {address: 0.0.0.0, port_value: 80}
+    filter_chains:
+    - filters:
+      - config:
+          codec_type: auto
+          http_filters:
+          - {name: envoy.router}
+          route_config:
+            name: local_route
+            request_headers_to_add:
+            - header: {key: HTTP_X_FORWARDED_HOST, value: '%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%'}
+            virtual_hosts:
+            - domains: [mail.*]
+              name: local_service
+              routes:
+              - match: {prefix: /}
+                route: {cluster: target_smtpfake}
+            - domains: [wdb.*]
+              name: local_service
+              routes:
+              - match: {prefix: /}
+                route: {cluster: target_wdb}
+            - domains: [odoo.*]
+              name: local_service
+              routes:
+              - match: {prefix: /longpolling/}
+                route: {
+                  cluster: target_odoo_longpolling,
+                  timeout: 60s
+                }
+              - match: {prefix: /}
+                route: {
+                    cluster: target_odoo,
+                    timeout: 720s
+                }
+          stat_prefix: ingress_http
+          upgrade_configs:
+          - {upgrade_type: websocket}
+        name: envoy.http_connection_manager
