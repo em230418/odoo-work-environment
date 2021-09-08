@@ -2,7 +2,7 @@
 set -xe
 
 # TODO: надо по-хорошему историю сохранять, а не обрезать с помощью depth 1
-for V in 14.0 #12.0 13.0 14.0
+for V in 14.0 13.0 #12.0
 do
     GIT_PARAMS="-o upstream --single-branch -b $V --depth 1"
 
