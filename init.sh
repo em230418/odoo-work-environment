@@ -17,6 +17,18 @@ do
     git clone https://github.com/odoo/odoo.git $GIT_PARAMS
     cd ..
 
+    mkdir -p OCA
+    cd OCA
+    git clone https://github.com/OCA/contract.git $GIT_PARAMS
+    git clone https://github.com/OCA/queue.git $GIT_PARAMS
+    git clone https://github.com/OCA/web.git $GIT_PARAMS
+    cd ..
+
+    mkdir -p itpp-labs
+    cd itpp-labs
+    git clone https://github.com/itpp-labs/access-addons.git $GIT_PARAMS
+    cd ..
+
     cd ..  # common
 
     cd docker
