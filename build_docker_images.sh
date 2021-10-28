@@ -3,11 +3,7 @@ set -xe
 
 for V in $@
 do
-    cd $V
-
-    cd docker
+    cd $V/docker
     docker build . -t my/odoo:$V
-    cd ..
-
-    cd ..  # $V
+    cd ../..
 done
