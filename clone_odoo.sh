@@ -3,7 +3,7 @@ set -xe
 
 cd "$(dirname "$0")"
 
-PWD=`pwd`
+WD=$PWD
 V=$1
 MASTER_DIR=$PWD/odoo-master-bare
 
@@ -11,7 +11,7 @@ if [ -d "$MASTER_DIR" ]; then
     # подтягиваем последние обновления с master ветки
     cd $MASTER_DIR
     git fetch
-    cd $PWD
+    cd $WD
 else
     # создаем "голый" репозиторий odoo с ветки master
     # требуется для того, чтобы репозитории с рабочими веткам (15.0, 14.0 и т.д)
