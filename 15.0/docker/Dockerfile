@@ -38,19 +38,30 @@ RUN apt-get update && \
     && apt-get install -y --no-install-recommends ./wkhtmltox.deb \
     && rm -rf /var/lib/apt/lists/* wkhtmltox.deb
 
+RUN apt-get update
+
+# psql is required to make/restore backups
+RUN apt-get install -y postgresql-client
+
 # Install rtlcss (on Debian buster)
 RUN npm install -g rtlcss
+
+# https://cryptography.io/en/latest/installation/#debian-ubuntu
+# Just in case we need to use cryptography package
+RUN apt-get install -y build-essential libssl-dev libffi-dev python3-dev cargo
+
+RUN apt-get install -y libpq-dev
+
+RUN python3 -m pip install pip --upgrade
+
+RUN curl https://raw.githubusercontent.com/odoo/odoo/15.0/requirements.txt > /tmp/requirements.txt
+RUN python3 -m pip install -r /tmp/requirements.txt
+
+RUN python3 -m pip install wdb
 
 # Copy entrypoint script and Odoo configuration file
 COPY ./entrypoint.sh /
 COPY ./odoo.conf /etc/odoo/
-
-RUN apt-get update && apt-get install -y build-essential python3-dev
-
-RUN apt-get install -y libpq-dev
-
-COPY ./requirements.txt /tmp/requirements.txt
-RUN python3 -m pip install -r /tmp/requirements.txt
 
 RUN mkdir /var/lib/odoo && \
     groupadd odoo && \
@@ -72,12 +83,6 @@ ENV ODOO_RC /etc/odoo/odoo.conf
 COPY wait-for-psql.py /usr/local/bin/wait-for-psql.py
 
 RUN ln -s /mnt/common/odoo/odoo/odoo-bin /usr/local/bin/odoo
-
-RUN python3 -m pip install wdb
-
-# https://cryptography.io/en/latest/installation/#debian-ubuntu
-# Just in case we need to use cryptography package
-RUN apt-get install -y build-essential libssl-dev libffi-dev python3-dev cargo
 
 # Set default user when running the container
 USER odoo
