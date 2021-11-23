@@ -25,6 +25,12 @@ GIT_PARAMS="-o upstream --single-branch -b $V --reference $MASTER_DIR"
 mkdir -p $V/common/odoo
 cd $V/common/odoo
 
-git clone https://github.com/odoo/odoo.git $GIT_PARAMS
+if [ -d "odoo" ]; then
+    cd odoo
+    git pull
+    cd ..
+else
+    git clone https://github.com/odoo/odoo.git $GIT_PARAMS
+fi
 
 cd ../../..
