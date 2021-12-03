@@ -19,6 +19,9 @@
    # первый запуск будет долгим
    ./clone_odoo.sh $ODOO_VERSION
 
+   # создаем виртуальное окружение
+   ./make_venv.sh $ODOO_VERSION
+
    # создаем docker-образ
    ./build_docker_image.sh $ODOO_VERSION
 
