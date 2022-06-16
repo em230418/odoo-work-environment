@@ -48,6 +48,8 @@ RUN apt-get install -y build-essential libssl-dev libffi-dev python3-dev cargo
 
 RUN apt-get install -y libpq-dev
 
+RUN apt-get install -y libldap2-dev libsasl2-dev
+
 RUN python3 -m pip install pip --upgrade
 
 RUN curl https://raw.githubusercontent.com/odoo/odoo/15.0/requirements.txt > /tmp/requirements.txt
