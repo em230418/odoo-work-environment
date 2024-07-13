@@ -1,5 +1,5 @@
 FROM registry.altlinux.org/alt/base:p11
-MAINTAINER Eugene Molotov <eugene.molotov@yandex.ru>
+LABEL Eugene Molotov <eugene.molotov@yandex.ru>
 
 SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 
@@ -81,7 +81,9 @@ RUN apt-get update \
 # Install rtlcss
 RUN npm install -g rtlcss
 
-# Make odoo user
+RUN ln -s /mnt/common/odoo/odoo/odoo-bin /usr/local/bin/odoo
+
+# Make odoo user and group
 ARG ODOO_UID=501
 ARG ODOO_GID=501
 
