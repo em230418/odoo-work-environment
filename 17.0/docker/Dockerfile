@@ -1,5 +1,5 @@
 FROM registry.altlinux.org/alt/base:p11
-LABEL Eugene Molotov <eugene.molotov@yandex.ru>
+MAINTAINER Eugene Molotov <eugene.molotov@yandex.ru>
 
 SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 
