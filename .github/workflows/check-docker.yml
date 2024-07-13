@@ -32,8 +32,8 @@ jobs:
       - name: Build image
         uses: docker/build-push-action@v5
         with:
-          context: ./${{ odoo-version }}/
-          file: ./${{ odoo-version }}/Dockerfile
+          context: ./${{ matrix.odoo-version }}/
+          file: ./${{ matrix.odoo-version }}/Dockerfile
           push: false
           load: true
-          tags: my/odoo:${{ odoo-version }}
+          tags: my/odoo:${{ matrix.odoo-version }}
