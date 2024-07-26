@@ -34,6 +34,7 @@ RUN apt-get update && \
         python3-module-dateutil \
         python3-module-decorator \
         python3-module-docutils \
+        python3-module-freezegun \
         python3-module-gevent \
         python3-module-greenlet \
         python3-module-idna \
