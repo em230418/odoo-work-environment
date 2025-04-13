@@ -10,7 +10,7 @@ MASTER_DIR=$PWD/odoo-master-bare
 if [ -d "$MASTER_DIR" ]; then
     # подтягиваем последние обновления с master ветки
     cd $MASTER_DIR
-    git fetch
+    git fetch origin master:master
     cd $WD
 else
     # создаем "голый" репозиторий odoo с ветки master
