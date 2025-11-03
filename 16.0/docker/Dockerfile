@@ -4,6 +4,14 @@ MAINTAINER Eugene Molotov <molotov@it-projects.info>
 USER root
 
 RUN python3 -m pip install pip --upgrade
+
+RUN apt-get update && apt-get install -y \
+    python3-click \
+    python3-jedi \
+    python3-magic \
+    python3-parso \
+    python3-setuptools
+
 RUN python3 -m pip install wdb
 RUN ln -s /mnt/common/odoo/odoo/odoo-bin /usr/local/bin/odoo
 
