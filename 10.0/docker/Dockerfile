@@ -18,7 +18,7 @@ RUN rm -f /etc/apt/sources.list && \
 
 RUN curl https://bootstrap.pypa.io/pip/2.7/get-pip.py -o get-pip.py && python get-pip.py
 
-RUN python -m pip install wdb
+RUN python -m pip install wdb uncompyle6"<=3.9.0"
 RUN ln -s /mnt/common/odoo/odoo/odoo-bin /usr/local/bin/odoo
 
 RUN python -m pip uninstall -y odoo
